@@ -18,7 +18,11 @@ class DynamicObstacleMazeEnv(gym.Env):
             np.random.seed(seed)
         self.reset()
 
-    def reset(self, **kwargs):
+    def reset(self, seed=None, options=None):
+        """Resets the environment and initializes obstacles."""
+        self.agent_pos = np.array([0,0])
+        self.obstacles = np.random.randint(0, self.size, size=(self.n_obstacles,2))
+        return {'agent': self.agent_pos, 'obstacles': self.obstacles}, {}
         self.agent_pos = np.array([0,0])
         self.obstacles = np.random.randint(0, self.size, size=(self.n_obstacles,2))
         return {'agent': self.agent_pos, 'obstacles': self.obstacles}, {}
