@@ -1,3 +1,4 @@
+
 import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
@@ -14,7 +15,10 @@ class ContinuousMazeEnv(gym.Env):
             np.random.seed(seed)
         self.reset()
 
-    def reset(self, **kwargs):
+    def reset(self, seed=None, options=None):
+        """Resets the environment state."""
+        self.agent_pos = np.array([0.0, 0.0])
+        return self.agent_pos, {}
         self.agent_pos = np.array([0.0, 0.0])
         return self.agent_pos, {}
 
