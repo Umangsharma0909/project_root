@@ -15,7 +15,11 @@ class DegradingMazeEnv(gym.Env):
             np.random.seed(seed)
         self.reset()
 
-    def reset(self, **kwargs):
+    def reset(self, seed=None, options=None):
+        """Resets the environment, ignoring seed/options as needed."""
+        self.agent_pos = np.array([0, 0])
+        self.degradation = 1.0
+        return self.agent_pos, {}
         self.agent_pos = np.array([0, 0])
         self.degradation = 1.0
         return self.agent_pos, {}
