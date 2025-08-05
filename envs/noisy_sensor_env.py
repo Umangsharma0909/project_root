@@ -15,7 +15,7 @@ class NoisySensorEnv(gym.Env):
         if seed is not None:
             np.random.seed(seed)
 
-    def reset(self):
+    def reset(self, **kwargs):
         obs, info = self.base_env.reset()
         self.drift = 0.0
         noisy = self._add_noise(obs)
