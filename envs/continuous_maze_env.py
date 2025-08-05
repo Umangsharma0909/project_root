@@ -14,7 +14,7 @@ class ContinuousMazeEnv(gym.Env):
             np.random.seed(seed)
         self.reset()
 
-    def reset(self):
+    def reset(self, **kwargs):
         self.agent_pos = np.array([0.0, 0.0])
         return self.agent_pos, {}
 
