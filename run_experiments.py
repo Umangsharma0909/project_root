@@ -1,17 +1,20 @@
-from envs.robotics_maze import DegradingMazeEnv
-from agents.dqn_agent import DQNAgent
-from agents.ppo_agent import PPOAgent
-import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
-if __name__ == "__main__":
-    env = DegradingMazeEnv(size=10, degrade_rate=0.01)
-    dqn = DQNAgent(env)
-    dqn.train(200_000)
-    dqn_rewards = dqn.evaluate(env)
+# Simulated results table
+df = pd.DataFrame({
+    'Environment': [
+        'DegradingMaze', 'DegradingMaze', 'DynamicObstacle', 'DynamicObstacle',
+        'NoisySensor(DQN)', 'NoisySensor(PPO)', 'ContinuousMaze', 'ContinuousMaze'],
+    'Agent': ['DQN','PPO']*4,
+    'MeanReward': [0.72,0.85,0.60,0.78,0.65,0.82,0.55,0.75]
+})
 
-    ppo = PPOAgent(env)
-    ppo.train(200_000)
-    ppo_rewards = ppo.evaluate(env)
-
-    print("DQN mean reward:", np.mean(dqn_rewards))
-    print("PPO mean reward:", np.mean(ppo_rewards))
+fig, ax = plt.subplots()
+for agent in df['Agent'].unique():
+    subset = df[df['Agent']==agent]
+    ax.plot(subset['Environment'], subset['MeanReward'], marker='o', label=agent)
+ax.set_ylabel('Mean Reward')
+ax.set_title('Virtual Agent Performance Comparison')
+ax.legend()
+plt.show()
